@@ -1,15 +1,10 @@
-function Assert(expected, received){
-    if(expected === received){
-        return true;
-    }
-    return false;
-};
+let { AssertSimpleType } = require('../utils/functions');
 
-function ClosingIsRight(openingChar, lastChar){    
+function closingIsRight(openingChar, lastChar){
     return openingChar === lastChar;
 };
 
-function IsClosingChar(char){
+function getOpeningChar(char){
     const closingChars = {
         ")": "(",
         "]": "[",
@@ -23,7 +18,7 @@ function updateLastObject(lastObject, newValue, newIndex) {
     lastObject.index = newIndex;
 }
 
-function IsValidInput(inputString){
+function isValidInput(inputString){
 
     if(inputString.trim() === ""){
         return true;
@@ -41,10 +36,10 @@ function IsValidInput(inputString){
     for (let charIdx = 0; charIdx < arrayChars.length; charIdx++) {
         
         const char = arrayChars[charIdx];
-        let respectiveOpeningChar = IsClosingChar(char);
+        let respectiveOpeningChar = getOpeningChar(char);
         
         if(respectiveOpeningChar){
-            if(ClosingIsRight(respectiveOpeningChar, lastObject.value)){
+            if(closingIsRight(respectiveOpeningChar, lastObject.value)){
                 if(charIdx === arrayChars.length - 1){
                     returnValue = true;
                     break;
@@ -69,12 +64,13 @@ function IsValidInput(inputString){
     return returnValue;
 };
 
-function RunTest(inputString, outputValue){    
-    console.log(`Result`, Assert(IsValidInput(inputString), outputValue));
+function runTest(inputString, outputValue){
+    console.log(`Result`, AssertSimpleType(isValidInput(inputString), outputValue));
 };
 
 
 module.exports.mainCloseParentesis = () => {
+    console.log(`========== Verify right close elements challenge ==========`)
     const testCases = {
         "Example 0":{
             Input: "",
@@ -107,11 +103,11 @@ module.exports.mainCloseParentesis = () => {
     }
     
     Object.keys(testCases).forEach(testKey => {
-        const input = testCases[testKey].Input;
-        console.log()
+        const input = testCases[testKey].Input;        
         console.log(`testCase: `, testKey, `\n\tInput:'${input}'`);
-        RunTest(input, testCases[testKey].Output);
+        runTest(input, testCases[testKey].Output);
         console.log()
     });
 
+    console.log(`==========================================================`)
 };
