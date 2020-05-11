@@ -1,7 +1,9 @@
 let { mainCloseParentesis } = require('./CloseParentesis/main');
 let { mainWaterPit } = require('./WaterPit/main');
+let { mainMultiplesOf_3_5 } = require('./PJ_Euler_3and5/main');
 
 console.log(`Starting code challenges ...`);
 
 // mainCloseParentesis();
-mainWaterPit();
+// mainWaterPit();
+mainMultiplesOf_3_5();
